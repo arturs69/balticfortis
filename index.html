@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OB/GYN State Exam — Comprehensive Overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --obs: #e05c5c;
+    --obs-dim: rgba(224,92,92,0.15);
+    --obs-border: rgba(224,92,92,0.4);
+    --gyn: #4a9eff;
+    --gyn-dim: rgba(74,158,255,0.15);
+    --gyn-border: rgba(74,158,255,0.4);
+    --gold: #f0b429;
+    --gold-dim: rgba(240,180,41,0.15);
+    --text: #e2e8f0;
+    --text-dim: #8899aa;
+    --green: #4ade80;
+    --green-dim: rgba(74,222,128,0.15);
+    --purple: #c084fc;
+    --purple-dim: rgba(192,132,252,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0a0e1a 0%, #111827 50%, #0d1520 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 40px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(224,92,92,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(74,158,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .header-content { position: relative; z-index: 1; }
+
+  .exam-badge {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: var(--gold-dim);
+    border: 1px solid rgba(240,180,41,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .header h1 span.obs { color: var(--obs); }
+  .header h1 span.gyn { color: var(--gyn); }
+
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .header-meta span { display: flex; align-items: center; gap: 6px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .dot.obs { background: var(--obs); }
+  .dot.gyn { background: var(--gyn); }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    gap: 4px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .tab {
+    padding: 14px 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    color: var(--text-dim);
+    transition: all 0.2s;
+    text-transform: uppercase;
+    user-select: none;
+  }
+
+  .tab:hover { color: var(--text); }
+  .tab.active.obs-tab { color: var(--obs); border-bottom-color: var(--obs); }
+  .tab.active.gyn-tab { color: var(--gyn); border-bottom-color: var(--gyn); }
+  .tab.active.emergency-tab { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* CONTENT */
+  .content { display: none; padding: 32px 40px; }
+  .content.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: rgba(255,255,255,0.15); }
+
+  .card.obs { border-left: 3px solid var(--obs); }
+  .card.gyn { border-left: 3px solid var(--gyn); }
+  .card.emergency { border-left: 3px solid var(--gold); }
+  .card.green { border-left: 3px solid var(--green); }
+  .card.purple { border-left: 3px solid var(--purple); }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .card-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 2px;
+  }
+
+  .card-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+  }
+
+  .card-tag.critical { background: rgba(224,92,92,0.2); color: var(--obs); border: 1px solid var(--obs-border); }
+  .card-tag.important { background: rgba(240,180,41,0.2); color: var(--gold); border: 1px solid rgba(240,180,41,0.4); }
+  .card-tag.routine { background: rgba(74,158,255,0.15); color: var(--gyn); border: 1px solid var(--gyn-border); }
+  .card-tag.pharma { background: rgba(192,132,252,0.15); color: var(--purple); border: 1px solid rgba(192,132,252,0.4); }
+
+  .card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  /* KEY POINTS */
+  .key-points { list-style: none; }
+
+  .key-points li {
+    display: flex;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    font-size: 12px;
+  }
+
+  .key-points li:last-child { border-bottom: none; }
+
+  .key-points li::before {
+    content: '→';
+    color: var(--text-dim);
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .key-points li strong { color: var(--text); font-weight: 500; }
+  .key-points li .highlight { color: var(--gold); font-weight: 500; }
+  .key-points li .highlight.obs { color: var(--obs); }
+  .key-points li .highlight.gyn { color: var(--gyn); }
+  .key-points li .highlight.green { color: var(--green); }
+
+  /* DRUG BOX */
+  .drug-box {
+    margin-top: 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 10px 12px;
+  }
+
+  .drug-box-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .drug-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .drug {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  .drug.first { background: rgba(74,222,128,0.1); color: var(--green); border-color: rgba(74,222,128,0.3); }
+  .drug.second { background: rgba(240,180,41,0.1); color: var(--gold); border-color: rgba(240,180,41,0.3); }
+  .drug.avoid { background: rgba(224,92,92,0.1); color: var(--obs); border-color: var(--obs-border); }
+  .drug.neutral { background: var(--surface); color: var(--text-dim); border-color: var(--border); }
+
+  /* CRITERIA BOX */
+  .criteria-box {
+    margin-top: 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .criteria-row {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+    font-size: 11px;
+  }
+
+  .criteria-row:last-child { border-bottom: none; }
+  .criteria-row.header-row { background: var(--surface2); font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+  .criteria-label { flex: 1; color: var(--text-dim); }
+  .criteria-value { flex: 2; color: var(--text); font-weight: 500; }
+
+  /* EMERGENCY FLOW */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 12px;
+  }
+
+  .flow-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--gold);
+    min-width: 18px;
+  }
+
+  .flow-arrow {
+    text-align: center;
+    color: var(--text-dim);
+    opacity: 0.4;
+    font-size: 10px;
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  /* APGAR TABLE */
+  .apgar-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 11px;
+  }
+
+  .apgar-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    padding: 6px 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    text-align: left;
+  }
+
+  .apgar-table td {
+    padding: 6px 10px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  .apgar-table td:first-child { color: var(--text); font-weight: 500; }
+  .apgar-table td.score-0 { color: var(--obs); }
+  .apgar-table td.score-1 { color: var(--gold); }
+  .apgar-table td.score-2 { color: var(--green); }
+
+  /* FULL WIDTH CARD */
+  .full-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  /* TWO COL */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+  }
+
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+
+  /* SEARCH */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px 16px;
+    margin-bottom: 24px;
+  }
+
+  .search-bar input {
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    flex: 1;
+  }
+
+  .search-bar input::placeholder { color: var(--text-dim); }
+  .search-icon { color: var(--text-dim); font-size: 14px; }
+
+  /* HIGHLIGHT */
+  mark { background: rgba(240,180,41,0.25); color: var(--gold); border-radius: 2px; padding: 0 2px; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 16px 40px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+  .hide { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-content">
+    <div class="exam-badge">RSU State Exam 2025/2026</div>
+    <h1><span class="obs">Obstetrics</span> & <span class="gyn">Gynecology</span><br>Comprehensive Study Guide</h1>
+    <div class="header-meta">
+      <span><span class="dot obs"></span>17 Obstetrics Topics</span>
+      <span><span class="dot gyn"></span>14 Gynecology Topics</span>
+      <span><span class="dot" style="background:var(--gold)"></span>Exam: May 18, 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab obs-tab active" onclick="showTab('obs')">Obstetrics</div>
+  <div class="tab gyn-tab" onclick="showTab('gyn')">Gynecology</div>
+  <div class="tab emergency-tab" onclick="showTab('emergency')">Emergency Quick Ref</div>
+</div>
+
+<!-- ==================== OBSTETRICS ==================== -->
+<div class="content active" id="obs">
+
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="obs-search" placeholder="Search obstetrics topics..." oninput="filterCards('obs')">
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><span class="card-tag critical">Critical</span> High-yield emergency</div>
+    <div class="legend-item"><span class="card-tag important">Important</span> Common exam topic</div>
+    <div class="legend-item"><span class="card-tag routine">Routine</span> Standard management</div>
+    <div class="legend-item"><span class="card-tag pharma">Pharma</span> Drug-focused</div>
+  </div>
+
+  <div class="grid" id="obs-grid">
+
+    <!-- Q1 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q1</span>
+        <span class="card-tag routine">Routine</span>
+      </div>
+      <h3>Antenatal Care — Physiological Pregnancy</h3>
+      <ul class="key-points">
+        <li><strong>First visit:</strong> full history, BMI, BP, blood type, Rh</li>
+        <li><strong>Labs:</strong> <span class="highlight">CBC, ferritin, OGTT, HBsAg, HIV, RPR, TPHA</span></li>
+        <li><strong>Serology:</strong> anti-HIV, rubella IgG, toxo IgG</li>
+        <li><strong>USG:</strong> 11–13+6 wks (NT), 20–21+6 wks (anatomy)</li>
+        <li><strong>Supplements:</strong> <span class="highlight">Folic acid 0.4mg/d until 12wks, Iodine 150mcg/d</span></li>
+        <li><strong>Anemia threshold:</strong> Hb &lt;11 g/dL; Ferritin &lt;30 → treat</li>
+        <li><strong>Rh-negative:</strong> Anti-D immunoglobulin at 28 wks</li>
+        <li><strong>Hypertension threshold:</strong> ≥140/90 (severe ≥160/110)</li>
+      </ul>
+    </div>
+
+    <!-- Q2 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q2</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Gestational Diabetes</h3>
+      <ul class="key-points">
+        <li><strong>Screen at:</strong> <span class="highlight">24–28 wks</span> with 75g OGTT</li>
+        <li><strong>Diagnosis (≥1 value):</strong> Fasting ≥5.1, 1h ≥10.0, 2h ≥8.5 mmol/L</li>
+        <li><strong>RF:</strong> BMI ≥25, age ≥35, prior GDM, PCOS, family hx CD</li>
+        <li><strong>1st line:</strong> <span class="highlight">Diet + exercise + self-monitoring</span></li>
+        <li><strong>Targets:</strong> Fasting &lt;5.3, 1h postmeal &lt;7.8, 2h &lt;6.7</li>
+        <li><strong>2nd line:</strong> Metformin or insulin if targets not met</li>
+        <li><strong>Fetal risk:</strong> Macrosomia, shoulder dystocia, neonatal hypoglycemia</li>
+        <li><strong>Postpartum:</strong> OGTT at 6–12 weeks; repeat every 3 years</li>
+      </ul>
+    </div>
+
+    <!-- Q3 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q3</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Fetal Anomalies, Growth & Wellbeing</h3>
+      <ul class="key-points">
+        <li><strong>I trimester screen:</strong> NT + PAPP-A + free β-hCG (11–13+6 wks)</li>
+        <li><strong>Down syndrome:</strong> ↓PAPP-A + ↑β-hCG + ↑NT</li>
+        <li><strong>Trisomy 18/13:</strong> ↓PAPP-A + ↓β-hCG</li>
+        <li><strong>NIPT:</strong> cell-free fetal DNA, for high-risk only</li>
+        <li><strong>Amniocentesis:</strong> &gt;16 wks; CVS: 11–13+6 wks</li>
+        <li><strong>Growth:</strong> Fundal height every visit from 16–18 wks</li>
+        <li><strong>Fetal movements:</strong> <span class="highlight">Normal ≥10 in 2 hours</span></li>
+        <li><strong>CTG reactive:</strong> ≥2 accelerations of ≥15 bpm in 20 min</li>
+        <li><strong>BPP:</strong> CTG + USG, max 10 points</li>
+      </ul>
+    </div>
+
+    <!-- Q4 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q4</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Physiological Childbirth — Stages of Labor</h3>
+      <ul class="key-points">
+        <li><strong>Stage 1 — Latent:</strong> 0–3 cm, irregular contractions</li>
+        <li><strong>Stage 1 — Active:</strong> 3–7 cm, strong regular contractions</li>
+        <li><strong>Stage 1 — Transition:</strong> <span class="highlight">7–10 cm, full dilation</span></li>
+        <li><strong>Stage 2:</strong> Full dilation → baby delivery (pushing)</li>
+        <li><strong>Stage 3:</strong> Placenta delivery (5–30 min physiologically)</li>
+        <li><strong>Stage 4:</strong> First 2h postpartum — PPH risk highest</li>
+        <li><strong>Active admission:</strong> ≥6 cm dilation</li>
+        <li><strong>Partograph:</strong> tracks dilation, descent, contractions, FHR</li>
+        <li><strong>3rd stage mgmt:</strong> <span class="highlight">Oxytocin 10 IU IM</span> after delivery</li>
+      </ul>
+    </div>
+
+    <!-- Q5 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q5</span>
+        <span class="card-tag routine">Routine</span>
+      </div>
+      <h3>Postpartum Period & Contraception</h3>
+      <ul class="key-points">
+        <li><strong>Duration:</strong> 6 weeks after placenta delivery</li>
+        <li><strong>Lochia:</strong> Rubra (d1–4) → Serosa (d4–10) → Alba (wks)</li>
+        <li><strong>Uterine involution:</strong> 1 cm/day, not palpable at 2 wks</li>
+        <li><strong>Uterine atony → PPH:</strong> most common early postpartum issue</li>
+        <li><strong>Safe while breastfeeding:</strong> <span class="highlight">Condoms, POP, IUD, implant</span></li>
+        <li><strong>AVOID while breastfeeding:</strong> Combined pill (↓milk, ↑VTE)</li>
+        <li><strong>Lactational amenorrhea:</strong> &lt;6 months, exclusive BF, amenorrhea</li>
+        <li><strong>Copper IUD:</strong> can insert immediately postpartum</li>
+      </ul>
+    </div>
+
+    <!-- Q6 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q6</span>
+        <span class="card-tag routine">Routine</span>
+      </div>
+      <h3>Lactation Physiology & Breastfeeding</h3>
+      <ul class="key-points">
+        <li><strong>Trigger:</strong> Delivery of placenta → ↓progesterone → milk production</li>
+        <li><strong>Prolactin reflex:</strong> Suckling → ↓dopamine → prolactin → milk synthesis</li>
+        <li><strong>Oxytocin reflex:</strong> Suckling → oxytocin → myoepithelial contraction → milk ejection</li>
+        <li><strong>Colostrum:</strong> days 1–7, rich in IgA, growth factors, Vit A&K</li>
+        <li><strong>WHO:</strong> <span class="highlight">Exclusive BF to 6 months, continue to 2 years</span></li>
+        <li><strong>BF benefits (baby):</strong> ↓infections, ↓allergy, ↓SIDS, cognitive dev</li>
+        <li><strong>BF benefits (mother):</strong> ↓PPH, ↓breast/ovarian Ca, ↓Type 2 DM</li>
+        <li><strong>Engorgement:</strong> frequent feeds, warm before, cold after, pump PRN</li>
+      </ul>
+    </div>
+
+    <!-- Q7 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q7</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>TORCH Infections in Pregnancy</h3>
+      <ul class="key-points">
+        <li><strong>T</strong> — Toxoplasmosis (cats, raw meat)</li>
+        <li><strong>O</strong> — Others: Syphilis, VZV, HIV, Parvovirus B19</li>
+        <li><strong>R</strong> — Rubella (NOT measles!)</li>
+        <li><strong>C</strong> — Cytomegalovirus (CMV)</li>
+        <li><strong>H</strong> — Herpes simplex (HSV)</li>
+        <li><strong>Primary infection = highest risk</strong> (no maternal IgG)</li>
+        <li><strong>IgG+IgM-</strong> = old infection, protected. <span class="highlight">IgG+IgM+</span> = recent, investigate</li>
+        <li><strong>Rubella syndrome:</strong> deafness, cataracts, heart defects (Gregg triad)</li>
+        <li><strong>VZV primary in preg:</strong> give VZIG within 96h; treat with Acyclovir</li>
+        <li><strong>HSV at delivery:</strong> active lesions → Caesarean</li>
+        <li><strong>HIV:</strong> ART throughout; VL &lt;50 copies → vaginal delivery possible</li>
+      </ul>
+    </div>
+
+    <!-- Q8 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q8</span>
+        <span class="card-tag critical">Critical</span>
+      </div>
+      <h3>Bleeding — Second Half of Pregnancy</h3>
+      <ul class="key-points">
+        <li><strong>Placenta Previa:</strong> <span class="highlight obs">Painless</span> bleeding, soft uterus, wrong lie</li>
+        <li><strong>Abruptio Placentae:</strong> <span class="highlight obs">Painful</span> bleeding, rigid uterus, hypertonic contractions</li>
+        <li><strong>Vasa Previa:</strong> bleeding + fetal bradycardia at ROM</li>
+        <li><strong>Uterine rupture:</strong> scar pain, fetal distress, station loss</li>
+        <li><strong>KEY RULE:</strong> Suspect PP → <span class="highlight">vaginal exam CONTRAINDICATED</span></li>
+        <li><strong>First investigation:</strong> Transabdominal USG to locate placenta</li>
+        <li><strong>Rh-negative:</strong> always give anti-D immunoglobulin</li>
+        <li><strong>Transport:</strong> left lateral decubitus position</li>
+      </ul>
+      <div class="criteria-box">
+        <div class="criteria-row header-row"><span class="criteria-label">Feature</span><span class="criteria-value">Previa vs Abruption</span></div>
+        <div class="criteria-row"><span class="criteria-label">Pain</span><span class="criteria-value">Previa: None / Abruption: Severe</span></div>
+        <div class="criteria-row"><span class="criteria-label">Uterus</span><span class="criteria-value">Previa: Soft / Abruption: Rigid</span></div>
+        <div class="criteria-row"><span class="criteria-label">Abnormal lie</span><span class="criteria-value">Previa: 35% / Abruption: &lt;5%</span></div>
+      </div>
+    </div>
+
+    <!-- Q9 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q9</span>
+        <span class="card-tag critical">Critical</span>
+      </div>
+      <h3>Postpartum Hemorrhage (PPH)</h3>
+      <ul class="key-points">
+        <li><strong>Definition:</strong> &gt;500 mL vaginal / &gt;1000 mL caesarean / &gt;2000 mL massive</li>
+        <li><strong>4T mnemonic:</strong> <span class="highlight">Tone 70% / Trauma 20% / Tissue 10% / Thrombin 1%</span></li>
+        <li><strong>Most common:</strong> Uterine atony</li>
+      </ul>
+      <div class="drug-box">
+        <div class="drug-box-title">Treatment Sequence</div>
+        <div class="flow" style="margin-top:0">
+          <div class="flow-step"><span class="flow-num">1</span>Oxytocin 10 IU IM/IV (first line)</div>
+          <div class="flow-step"><span class="flow-num">2</span>Ergometrine / Methylergonovine (not in hypertension)</div>
+          <div class="flow-step"><span class="flow-num">3</span>Tranexamic acid (within 3h)</div>
+          <div class="flow-step"><span class="flow-num">4</span>B-Lynch sutures / uterine artery embolization</div>
+          <div class="flow-step"><span class="flow-num">5</span>Hysterectomy (last resort)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q10 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q10</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Hypertensive Disorders in Pregnancy</h3>
+      <ul class="key-points">
+        <li><strong>Chronic HT:</strong> known before 20 wks</li>
+        <li><strong>Gestational HT:</strong> new after 20 wks, no proteinuria</li>
+        <li><strong>Preeclampsia:</strong> HT + proteinuria or organ dysfunction</li>
+        <li><strong>Eclampsia:</strong> Preeclampsia + seizures</li>
+        <li><strong>Treat when:</strong> <span class="highlight">≥140/90; urgently at ≥160/110</span></li>
+      </ul>
+      <div class="drug-box">
+        <div class="drug-box-title">Antihypertensives in Pregnancy</div>
+        <div class="drug-list">
+          <span class="drug first">Labetalol</span>
+          <span class="drug first">Nifedipine (long-acting)</span>
+          <span class="drug first">Methyldopa</span>
+          <span class="drug avoid">ACE inhibitors ✗</span>
+          <span class="drug avoid">ARBs ✗</span>
+          <span class="drug avoid">Spironolactone ✗</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q11 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q11</span>
+        <span class="card-tag critical">Critical</span>
+      </div>
+      <h3>Preeclampsia</h3>
+      <ul class="key-points">
+        <li><strong>Diagnosis:</strong> BP ≥140/90 after 20 wks + proteinuria ≥300mg/24h <em>or</em> organ dysfunction</li>
+        <li><strong>Severe features:</strong> BP ≥160/110, CNS symptoms, HELLP, pulmonary edema</li>
+        <li><strong>Prevention (high risk):</strong> <span class="highlight">Aspirin 150mg/night from 12 wks</span></li>
+        <li><strong>MgSO₄:</strong> 4g IV bolus → 1–2g/h; seizure prophylaxis + eclampsia Rx</li>
+        <li><strong>BP target:</strong> SAS &lt;150, DAS 80–100 mmHg</li>
+        <li><strong>Deliver at ≥37 wks;</strong> if severe → after stabilization regardless of GA</li>
+        <li><strong>Corticosteroids:</strong> if &lt;34–35 wks → betamethasone 12mg IM x2</li>
+      </ul>
+    </div>
+
+    <!-- Q12 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q12</span>
+        <span class="card-tag pharma">Pharma</span>
+      </div>
+      <h3>Epilepsy & Medication Safety</h3>
+      <ul class="key-points">
+        <li><strong>Valproate:</strong> <span class="highlight obs">CONTRAINDICATED</span> — neural tube defects, NDD, autism</li>
+        <li><strong>Safest AEDs:</strong> Lamotrigine, Levetiracetam (monotherapy preferred)</li>
+        <li><strong>Folic acid:</strong> 4–5 mg/day in epilepsy (standard 0.4mg)</li>
+        <li><strong>Seizure in labor:</strong> IV Lorazepam first line</li>
+        <li><strong>Eclampsia:</strong> MgSO₄ (not AED)</li>
+        <li><strong>Breastfeeding:</strong> most AEDs safe, monitor infant for sedation</li>
+        <li><strong>Valproate in BF:</strong> technically low milk levels but avoid if possible</li>
+      </ul>
+    </div>
+
+    <!-- Q13 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q13</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>DVT / Pulmonary Embolism</h3>
+      <ul class="key-points">
+        <li><strong>Virchow's triad in pregnancy:</strong> hypercoagulation + venous stasis + vessel injury</li>
+        <li><strong>Diagnosis DVT:</strong> compression US + D-dimer (often elevated in preg)</li>
+        <li><strong>Diagnosis PE:</strong> <span class="highlight">CT pulmonary angiography</span> (safe in preg, low fetal radiation)</li>
+        <li><strong>Treatment:</strong> LMWH (enoxaparin 1mg/kg BD) throughout pregnancy + 6wks postpartum</li>
+        <li><strong>NOT in preg:</strong> Warfarin (teratogenic), NOACs (dabigatran, rivaroxaban)</li>
+        <li><strong>Prophylaxis:</strong> mobility, hydration; LMWH if high risk</li>
+        <li><strong>High risk:</strong> prior VTE, thrombophilia, immobility, CS, OHSS</li>
+      </ul>
+    </div>
+
+    <!-- Q14 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q14</span>
+        <span class="card-tag critical">Critical</span>
+      </div>
+      <h3>Preterm Labor</h3>
+      <ul class="key-points">
+        <li><strong>Definition:</strong> 22+0 to 36+6 weeks gestation</li>
+        <li><strong>Diagnosis:</strong> contractions 4/20min or 8/60min + cervical changes</li>
+        <li><strong>Cervical length:</strong> <span class="highlight">&gt;25mm → unlikely; &lt;15mm → high risk</span></li>
+        <li><strong>fFN:</strong> if negative → very low risk of delivery in 7 days</li>
+        <li><strong>Tocolytics (48h window):</strong> Nifedipine or Atosiban</li>
+        <li><strong>Steroids:</strong> <span class="highlight">Betamethasone 12mg IM x2 at 24–33+6 wks</span></li>
+        <li><strong>MgSO₄:</strong> neuroprotection if 24–32 wks</li>
+        <li><strong>Antibiotics:</strong> if PPROM or GBS carrier</li>
+        <li><strong>Cerclage:</strong> if cervical insufficiency or short cervix + prior PTL</li>
+      </ul>
+    </div>
+
+    <!-- Q15 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q15</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Caesarean Section — Indications & Risks</h3>
+      <ul class="key-points">
+        <li><strong>Absolute indications:</strong> Placenta previa totalis, cephalopelvic disproportion</li>
+        <li><strong>Planned CS:</strong> Placenta accreta, prior classical incision, transverse lie, genital HSV at labor</li>
+        <li><strong>Emergency CS:</strong> Fetal distress, cord prolapse, abruption with bleeding, uterine rupture</li>
+        <li><strong>Short-term risks:</strong> Hemorrhage, infection, anesthesia complications, bladder injury, VTE</li>
+        <li><strong>Long-term risks:</strong> <span class="highlight">Adhesions, placenta accreta in future, uterine rupture risk</span></li>
+        <li><strong>Neonatal risks:</strong> Transient tachypnea, altered gut microbiome, ↑allergy risk</li>
+      </ul>
+    </div>
+
+    <!-- Q16 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q16</span>
+        <span class="card-tag important">Important</span>
+      </div>
+      <h3>Postpartum Endometritis</h3>
+      <ul class="key-points">
+        <li><strong>Definition:</strong> Infection of decidua (pregnancy endometrium)</li>
+        <li><strong>Most common RF:</strong> <span class="highlight">Caesarean section</span>, prolonged labor, PPROM, chorioamnionitis</li>
+        <li><strong>Diagnosis:</strong> Fever ≥38°C after 24h + uterine tenderness + malodorous lochia</li>
+        <li><strong>Organisms:</strong> Polymicrobial — E.coli, Streptococcus, Bacteroides</li>
+        <li><strong>Treatment:</strong> Clindamycin + Gentamicin (IV); Ampicillin-Sulbactam alternative</li>
+        <li><strong>Expect improvement in 48–72h;</strong> if not → add Ampicillin or Vancomycin</li>
+        <li><strong>Prophylaxis:</strong> <span class="highlight">Antibiotics before CS skin incision</span></li>
+      </ul>
+    </div>
+
+    <!-- Q17 -->
+    <div class="card obs searchable">
+      <div class="card-header">
+        <span class="card-number">Q17</span>
+        <span class="card-tag critical">Critical</span>
+      </div>
+      <h3>Newborn Assessment & Apgar Score</h3>
+      <ul class="key-points">
+        <li><strong>Assess at:</strong> 1 min and 5 min; if ≤7 at 5 min → assess at 10 min</li>
+        <li><strong>Normal neonatal HR:</strong> 120–160 bpm</li>
+        <li><strong>Apgar ≥7:</strong> Normal. <strong>4–6:</strong> Moderate depression. <strong>≤3:</strong> Severe — resuscitate</li>
+        <li><strong>Apgar ≠ indication to start resuscitation</strong> — clinical assessment is</li>
+      </ul>
+      <table class="apgar-table">
+        <tr><th>Criterion</th><th class="score-0">0</th><th class="score-1">1</th><th class="score-2">2</th></tr>
+        <tr><td>Appearance</td><td class="score-0">Blue/pale</td><td class="score-1">Acrocyanosis</td><td class="score-2">Pink</td></tr>
+        <tr><td>Pulse</td><td class="score-0">Absent</td><td class="score-1">&lt;100</td><td class="score-2">&gt;100</td></tr>
+        <tr><td>Grimace</td><td class="score-0">None</td><td class="score-1">Grimace</td><td class="score-2">Cry/cough</td></tr>
+        <tr><td>Activity</td><td class="score-0">Limp</td><td class="score-1">Some flexion</td><td class="score-2">Active</td></tr>
+        <tr><td>Respiration</td><td class="score-0">Absent</td><td class="score-1">Slow/gasping</td><td class="score-2">Strong cry</td></tr>
+      </table>
+      <div class="drug-box" style="margin-top:12px">
+        <div class="drug-box-title">Resuscitation Sequence</div>
+        <div class="flow" style="margin-top:0">
+          <div class="flow-step"><span class="flow-num">1</span>Dry, warm, stimulate (rub back, flick soles)</div>
+          <div class="flow-step"><span class="flow-num">2</span>Clear airway (suction if meconium)</div>
+          <div class="flow-step"><span class="flow-num">3</span>If HR &lt;100 → Positive pressure ventilation 40–60/min</div>
+          <div class="flow-step"><span class="flow-num">4</span>If HR &lt;60 → Chest compressions + PPV (3:1 ratio)</div>
+          <div class="flow-step"><span class="flow-num">5</span>If HR &lt;60 → IV Epinephrine</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== GYNECOLOGY ==================== -->
+<div class="content" id="gyn">
+
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="gyn-search" placeholder="Search gynecology topics..." oninput="filterCards('gyn')">
+  </div>
+
+  <div class="grid" id="gyn-grid">
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G1</span><span class="card-tag routine">Routine</span></div>
+      <h3>Gynecological Examination Methods</h3>
+      <ul class="key-points">
+        <li><strong>Speculum exam:</strong> cervix, vaginal walls, discharge character</li>
+        <li><strong>Bimanual:</strong> uterus size/shape/mobility, adnexa, DzK deviation</li>
+        <li><strong>TVUS:</strong> 1st choice for pelvic organs, better resolution than TAUS</li>
+        <li><strong>TAUS:</strong> large masses, overview, full bladder needed</li>
+        <li><strong>MRI:</strong> adenomyosis, deep endometriosis, cervical Ca staging</li>
+        <li><strong>Hysteroscopy:</strong> <span class="highlight gyn">direct uterine cavity visualization + biopsy</span></li>
+        <li><strong>Laparoscopy:</strong> gold standard for endometriosis diagnosis</li>
+        <li><strong>HSG:</strong> tubal patency assessment in infertility</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G2</span><span class="card-tag routine">Routine</span></div>
+      <h3>Contraception — Efficacy & Contraindications</h3>
+      <ul class="key-points">
+        <li><strong>Most effective:</strong> Implant, IUS, IUD (&lt;1% failure)</li>
+        <li><strong>COC:</strong> ↓menstrual pain, ↓ovarian Ca; CI: thrombosis, migraine+aura, active liver disease</li>
+        <li><strong>POP (mini-pill):</strong> safe in BF, migraine, ↑VTE risk patients</li>
+        <li><strong>Emergency contraception:</strong> <span class="highlight gyn">Levonorgestrel ≤72h; Ulipristal ≤120h</span></li>
+        <li><strong>Copper IUD:</strong> most effective EC if inserted ≤5 days</li>
+        <li><strong>Breastfeeding:</strong> Avoid combined hormonal; use POP/IUD/condom</li>
+        <li><strong>Lactational amenorrhea:</strong> &lt;6 months + exclusive BF + amenorrhea</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G3</span><span class="card-tag important">Important</span></div>
+      <h3>Abnormal Uterine Bleeding (AUB)</h3>
+      <ul class="key-points">
+        <li><strong>PALM-COEIN:</strong> Polyp, Adenomyosis, Leiomyoma, Malignancy / Coagulopathy, Ovulatory, Endometrial, Iatrogenic, Not classified</li>
+        <li><strong>First exclude:</strong> <span class="highlight gyn">Pregnancy (β-hCG)</span></li>
+        <li><strong>Menorrhagia:</strong> &gt;80 mL per cycle or &gt;8 days</li>
+        <li><strong>Metrorrhagia:</strong> irregular, between-period bleeding</li>
+        <li><strong>Work-up:</strong> CBC, TSH, coagulation, prolactin, TVUS, endometrial biopsy if indicated</li>
+        <li><strong>1st line treatment:</strong> LNG-IUS; also TXA, NSAIDs, COC</li>
+        <li><strong>Endometrial biopsy indications:</strong> age &gt;45, anovulation, tamoxifen use</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G4</span><span class="card-tag important">Important</span></div>
+      <h3>Endometrial Hyperplasia</h3>
+      <ul class="key-points">
+        <li><strong>Caused by:</strong> unopposed estrogen (anovulation, obesity, PCOS, tamoxifen)</li>
+        <li><strong>Without atypia:</strong> malignant risk &lt;5%; treat with <span class="highlight gyn">LNG-IUS (Mirena)</span></li>
+        <li><strong>With atypia (EIN):</strong> malignant risk 29%; → <span class="highlight obs">hysterectomy</span> if fertility not desired</li>
+        <li><strong>Diagnosis:</strong> histology only — Pipelle biopsy, D&C, or hysteroscopy + biopsy</li>
+        <li><strong>Follow-up:</strong> biopsy every 3–6 months until regression confirmed</li>
+        <li><strong>RF:</strong> obesity, nulliparity, PCOS, late menopause, DM, Lynch syndrome</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G5</span><span class="card-tag routine">Routine</span></div>
+      <h3>Menopause & HRT</h3>
+      <ul class="key-points">
+        <li><strong>Definition:</strong> 12 months amenorrhea from ovarian failure; avg 51 years</li>
+        <li><strong>Symptoms:</strong> hot flushes, night sweats, vaginal dryness, ↓libido, osteoporosis</li>
+        <li><strong>HRT indications:</strong> moderate-severe vasomotor symptoms, urogenital atrophy, surgical menopause</li>
+        <li><strong>With uterus:</strong> <span class="highlight gyn">Estrogen + progestogen</span> (protects endometrium)</li>
+        <li><strong>Without uterus:</strong> Estrogen only</li>
+        <li><strong>HRT CI:</strong> breast Ca, endometrial Ca, unexplained bleeding, active VTE, liver disease</li>
+        <li><strong>Lowest effective dose, shortest duration</strong></li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G6</span><span class="card-tag important">Important</span></div>
+      <h3>PCOS — Diagnosis & Management</h3>
+      <ul class="key-points">
+        <li><strong>Rotterdam criteria (2 of 3):</strong> irregular cycles, clinical/biochemical hyperandrogenism, PCO morphology on USG</li>
+        <li><strong>USG:</strong> ≥20 follicles per ovary OR ovarian volume ≥10 mL</li>
+        <li><strong>Labs:</strong> Total testosterone, SHBG, LH:FSH ratio &gt;2:1</li>
+        <li><strong>Exclude:</strong> pregnancy, thyroid, hyperprolactinemia, CAH (17-OHP)</li>
+        <li><strong>If no fertility desired:</strong> <span class="highlight gyn">COC (1st line)</span> + lifestyle</li>
+        <li><strong>If insulin resistance:</strong> Metformin</li>
+        <li><strong>If fertility desired:</strong> Letrozole (1st line) → Clomiphene → Gonadotropins</li>
+        <li><strong>Long-term risks:</strong> T2DM, endometrial Ca, CVD, depression</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G7</span><span class="card-tag important">Important</span></div>
+      <h3>Infertility — Causes & Investigation</h3>
+      <ul class="key-points">
+        <li><strong>Definition:</strong> No conception after <span class="highlight gyn">12 months</span> (&lt;35y) or <span class="highlight gyn">6 months</span> (≥35y)</li>
+        <li><strong>Female factors:</strong> ovulatory (PCOS, POI), tubal (PID, endometriosis), uterine (fibroids, polyps), cervical</li>
+        <li><strong>Male factor:</strong> spermatogram — concentration, motility, morphology</li>
+        <li><strong>Female work-up:</strong> TSH, prolactin, FSH/LH/E2 (day 3), AMH, AFC, TVUS, HSG</li>
+        <li><strong>Tubal factor → IVF</strong> (especially bilateral hydrosalpinx)</li>
+        <li><strong>Ovulatory factor → Letrozole</strong> (1st line for PCOS)</li>
+        <li><strong>Uterine factor → hysteroscopy</strong> (polyps, septa, fibroids)</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G8</span><span class="card-tag critical">Critical</span></div>
+      <h3>Pelvic Inflammatory Disease (PID)</h3>
+      <ul class="key-points">
+        <li><strong>Minimum criteria (any 1):</strong> uterine tenderness, adnexal tenderness, cervical motion tenderness</li>
+        <li><strong>Causative:</strong> N. gonorrhoeae, C. trachomatis, anaerobes</li>
+        <li><strong>RF:</strong> age &lt;25, multiple partners, prior PID, IUD</li>
+        <li><strong>Treatment:</strong> <span class="highlight gyn">Ceftriaxone IM + Doxycycline PO + Metronidazole</span> × 14 days</li>
+        <li><strong>Hospitalize if:</strong> TOA, high fever, cannot take PO, pregnancy, no improvement at 72h</li>
+        <li><strong>Complications:</strong> TOA, hydrosalpinx, infertility, ectopic pregnancy, chronic pelvic pain</li>
+        <li><strong>Partner treatment mandatory</strong></li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G9</span><span class="card-tag important">Important</span></div>
+      <h3>Cervical Precancerous Changes (CIN)</h3>
+      <ul class="key-points">
+        <li><strong>Cause:</strong> Persistent high-risk HPV (16, 18, 31, 33...)</li>
+        <li><strong>Screening Latvia:</strong> PAP (25–29y) → HPV test from 30y every 5y</li>
+        <li><strong>CIN I:</strong> observe; colposcopy follow-up at 6/12/24 months</li>
+        <li><strong>CIN II/III:</strong> <span class="highlight gyn">cervical excision (LEEP/cone)</span></li>
+        <li><strong>Colposcopy:</strong> acetic acid + Lugol's iodine to visualize transformation zone</li>
+        <li><strong>Vaccination:</strong> 9-valent HPV vaccine from age 12 (boys and girls)</li>
+        <li><strong>Invasion:</strong> refer to oncogynecologist</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G10</span><span class="card-tag important">Important</span></div>
+      <h3>Early Pregnancy Loss (Miscarriage)</h3>
+      <ul class="key-points">
+        <li><strong>Most common cause:</strong> chromosomal anomalies (especially T1)</li>
+        <li><strong>Threatened:</strong> bleeding + closed cervix + fetal heartbeat present</li>
+        <li><strong>Inevitable:</strong> bleeding + open cervix</li>
+        <li><strong>Incomplete:</strong> retained products in cavity</li>
+        <li><strong>Missed:</strong> <span class="highlight">CRL &gt;7mm without heartbeat</span></li>
+        <li><strong>Management options:</strong> expectant (7–14d), medical (misoprostol), surgical (MVA/D&C)</li>
+        <li><strong>β-hCG:</strong> doubles every 48–72h in viable pregnancy; falling in miscarriage</li>
+        <li><strong>Recurrent (≥3):</strong> investigate antiphospholipid syndrome, thrombophilia, uterine anomaly</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G11</span><span class="card-tag critical">Critical</span></div>
+      <h3>Ectopic Pregnancy</h3>
+      <ul class="key-points">
+        <li><strong>Classic triad:</strong> <span class="highlight obs">amenorrhea + pelvic pain + vaginal bleeding</span></li>
+        <li><strong>Most common site:</strong> ampulla of fallopian tube (95%)</li>
+        <li><strong>Diagnosis:</strong> TVUS (no IUP when β-hCG ≥1500 mIU/mL) + β-hCG</li>
+        <li><strong>Expectant:</strong> β-hCG &lt;1000, stable, no cardiac activity, &lt;35mm</li>
+        <li><strong>Medical:</strong> <span class="highlight gyn">Methotrexate 1mg/kg</span>; CI: β-hCG &gt;5000, cardiac activity</li>
+        <li><strong>Surgical (gold standard):</strong> laparoscopic salpingectomy or salpingotomy</li>
+        <li><strong>Emergency surgery:</strong> rupture, hemodynamic instability</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G12</span><span class="card-tag important">Important</span></div>
+      <h3>Uterine Fibroids (Myoma)</h3>
+      <ul class="key-points">
+        <li><strong>Classification:</strong> Submucosal (0–2), Intramural (3–4), Subserosal (5–7) by FIGO</li>
+        <li><strong>Symptoms:</strong> PDA, dysmenorrhea, bulk symptoms (urinary, bowel), infertility</li>
+        <li><strong>Asymptomatic:</strong> watchful waiting, US every 6–12 months</li>
+        <li><strong>Medical:</strong> TXA, NSAIDs, LNG-IUS, GnRH agonists (pre-surgery shrinkage)</li>
+        <li><strong>Submucosal → <span class="highlight gyn">hysteroscopic myomectomy</span></strong></li>
+        <li><strong>Intramural/subserosal → laparoscopic myomectomy</strong></li>
+        <li><strong>Uterine artery embolization:</strong> alternative to surgery</li>
+        <li><strong>Definitive:</strong> hysterectomy (no fertility plans)</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G13</span><span class="card-tag important">Important</span></div>
+      <h3>Endometriosis</h3>
+      <ul class="key-points">
+        <li><strong>Classic symptoms:</strong> dysmenorrhea, dyspareunia, chronic pelvic pain, infertility</li>
+        <li><strong>Diagnosis:</strong> TVUS (endometrioma), MRI (deep infiltrating), laparoscopy + histology (gold standard)</li>
+        <li><strong>Medical:</strong> <span class="highlight gyn">NSAIDs + COC/Dienogest/LNG-IUS</span> for pain control</li>
+        <li><strong>Severe/refractory:</strong> GnRH agonists (max 6 months, bone loss)</li>
+        <li><strong>Surgical:</strong> laparoscopic excision of lesions, adhesiolysis</li>
+        <li><strong>Endometrioma &gt;3–4cm:</strong> cystectomy (not aspiration — recurs)</li>
+        <li><strong>Infertility + endometriosis:</strong> consider ART; hormonal therapy does NOT improve spontaneous fertility</li>
+      </ul>
+    </div>
+
+    <div class="card gyn searchable">
+      <div class="card-header"><span class="card-number">G14</span><span class="card-tag critical">Critical</span></div>
+      <h3>Benign Ovarian Masses & Acute Complications</h3>
+      <ul class="key-points">
+        <li><strong>Functional:</strong> follicular cyst (resolves in 1–3 cycles), corpus luteum cyst (rupture risk)</li>
+        <li><strong>Benign neoplasms:</strong> serous/mucinous cystadenoma, dermoid (teratoma), endometrioma, fibroma</li>
+        <li><strong>ALWAYS exclude first:</strong> <span class="highlight obs">ectopic pregnancy (β-hCG)</span></li>
+        <li><strong>Torsion:</strong> sudden severe unilateral pain + nausea; emergency laparoscopy + detorsion</li>
+        <li><strong>Ruptured cyst:</strong> sudden pain after exercise/sex; usually self-limiting</li>
+        <li><strong>Malignancy features (IOTA M):</strong> irregular solid mass, ascites, ≥4 papillary structures, ≥100mm</li>
+        <li><strong>Postmenopause + complex mass:</strong> CA-125 + HE4 + refer to oncogyn</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== EMERGENCY QUICK REF ==================== -->
+<div class="content" id="emergency">
+
+  <div class="section-title" style="color:var(--gold)">
+    Emergency Quick Reference
+    <span class="num">High-Yield Exam Scenarios</span>
+  </div>
+
+  <div class="two-col">
+
+    <div class="full-card" style="border-left:3px solid var(--obs)">
+      <h3 style="font-family:'Playfair Display',serif;font-size:16px;color:#fff;margin-bottom:14px">Preeclampsia Mgmt at a Glance</h3>
+      <div class="flow">
+        <div class="flow-step"><span class="flow-num">1</span>Labetalol IV or Nifedipine PO → target SAS &lt;150</div>
+        <div class="flow-step"><span class="flow-num">2</span>MgSO₄ 4g IV bolus → 1–2g/h (seizure prophylaxis)</div>
+        <div class="flow-step"><span class="flow-num">3</span>Corticosteroids if &lt;34–35 wks (betamethasone 12mg x2)</div>
+        <div class="flow-step"><span class="flow-num">4</span>Deliver: ≥37wks immediately; 34–37wks if severe; &lt;34wks if stable wait</div>
+        <div class="flow-step"><span class="flow-num">5</span>Continue MgSO₄ for 24h postpartum</div>
+      </div>
+    </div>
+
+    <div class="full-card" style="border-left:3px solid var(--gold)">
+      <h3 style="font-family:'Playfair Display',serif;font-size:16px;color:#fff;margin-bottom:14px">PPH — 4T Framework</h3>
+      <div class="criteria-box">
+        <div class="criteria-row header-row"><span class="criteria-label">T</span><span class="criteria-value">Cause & Frequency</span></div>
+        <div class="criteria-row"><span class="criteria-label" style="color:var(--obs)">Tone</span><span class="criteria-value">Uterine atony — 70% — Oxytocin, massage</span></div>
+        <div class="criteria-row"><span class="criteria-label" style="color:var(--gold)">Trauma</span><span class="criteria-value">Lacerations, hematoma — 20% — Repair</span></div>
+        <div class="criteria-row"><span class="criteria-label" style="color:var(--gyn)">Tissue</span><span class="criteria-value">Retained placenta — 10% — Manual removal</span></div>
+        <div class="criteria-row"><span class="criteria-label" style="color:var(--purple)">Thrombin</span><span class="criteria-value">Coagulopathy — 1% — FFP, cryo, platelets</span></div>
+      </div>
+    </div>
+
+    <div class="full-card" style="border-left:3px solid var(--gyn)">
+      <h3 style="font-family:'Playfair Display',serif;font-size:16px;color:#fff;margin-bottom:14px">Preterm Labor Protocol</h3>
+      <div class="flow">
+        <div class="flow-step"><span class="flow-num">1</span>Confirm diagnosis: contractions + cervical change or short cervix</div>
+        <div class="flow-step"><span class="flow-num">2</span>Rule out contraindications (chorioamnionitis, abruption, fetal distress)</div>
+        <div class="flow-step"><span class="flow-num">3</span>Tocolysis: Nifedipine or Atosiban for 48h window</div>
+        <div class="flow-step"><span class="flow-num">4</span>Steroids: Betamethasone 12mg IM x2 (24–33+6 wks)</div>
+        <div class="flow-step"><span class="flow-num">5</span>MgSO₄ neuroprotection if 24–32 wks</div>
+        <div class="flow-step"><span class="flow-num">6</span>Antibiotics if PPROM or GBS positive</div>
+      </div>
+    </div>
+
+    <div class="full-card" style="border-left:3px solid var(--green)">
+      <h3 style="font-family:'Playfair Display',serif;font-size:16px;color:#fff;margin-bottom:14px">Ectopic Pregnancy Decision Tree</h3>
+      <div class="flow">
+        <div class="flow-step"><span class="flow-num">?</span>Hemodynamically unstable? → Emergency laparoscopy NOW</div>
+        <div class="flow-step"><span class="flow-num">1</span>β-hCG &lt;1000 + no cardiac activity + stable → Expectant</div>
+        <div class="flow-step"><span class="flow-num">2</span>β-hCG &lt;5000 + no cardiac activity + &lt;35mm → MTX 1mg/kg</div>
+        <div class="flow-step"><span class="flow-num">3</span>β-hCG &gt;5000 or cardiac activity or large mass → Surgery</div>
+        <div class="flow-step"><span class="flow-num">!</span>Monitor β-hCG: check d4 vs d1; if &lt;15% drop → repeat MTX</div>
+      </div>
+    </div>
+
+  </div>
+
+  <hr class="divider">
+
+  <div class="section-title" style="color:var(--text);font-size:18px">
+    Key Drug Reference
+    <span class="num">Pregnancy & Gynecology</span>
+  </div>
+
+  <div class="grid-3">
+    <div class="card purple">
+      <h3>Tocolytics</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">Nifedipine (1st)</span>
+        <span class="drug first">Atosiban (1st)</span>
+        <span class="drug second">Indomethacin</span>
+        <span class="drug avoid">Terbutaline ✗</span>
+      </div>
+    </div>
+    <div class="card green">
+      <h3>Corticosteroids (Fetal Lung Maturity)</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">Betamethasone 12mg x2</span>
+        <span class="drug first">Dexamethasone 6mg x4</span>
+      </div>
+      <p style="font-size:11px;color:var(--text-dim);margin-top:8px">Give at 24+0 – 33+6 wks; consider 34–35+6</p>
+    </div>
+    <div class="card obs">
+      <h3>Uterotonics (PPH)</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">Oxytocin 10 IU (1st)</span>
+        <span class="drug second">Ergometrine</span>
+        <span class="drug second">Misoprostol</span>
+        <span class="drug neutral">Tranexamic acid</span>
+      </div>
+    </div>
+    <div class="card gyn">
+      <h3>Safe Antihypertensives in Pregnancy</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">Labetalol</span>
+        <span class="drug first">Nifedipine LA</span>
+        <span class="drug first">Methyldopa</span>
+        <span class="drug avoid">ACEi ✗</span>
+        <span class="drug avoid">ARBs ✗</span>
+      </div>
+    </div>
+    <div class="card purple">
+      <h3>Safe AEDs in Pregnancy</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">Lamotrigine (1st)</span>
+        <span class="drug first">Levetiracetam (1st)</span>
+        <span class="drug second">Carbamazepine</span>
+        <span class="drug avoid">Valproate ✗✗✗</span>
+      </div>
+    </div>
+    <div class="card green">
+      <h3>Anticoagulation in Pregnancy</h3>
+      <div class="drug-list" style="margin-top:8px">
+        <span class="drug first">LMWH — Enoxaparin</span>
+        <span class="drug second">Unfractionated heparin</span>
+        <span class="drug avoid">Warfarin ✗ (1st trim)</span>
+        <span class="drug avoid">NOACs ✗</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>RSU MF — OB/GYN State Exam Study Guide</span>
+  <span>Exam Date: 18 May 2026</span>
+</div>
+
+<script>
+function showTab(tab) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function filterCards(section) {
+  const input = document.getElementById(section + '-search').value.toLowerCase();
+  const grid = document.getElementById(section + '-grid');
+  grid.querySelectorAll('.searchable').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.classList.toggle('hide', !text.includes(input));
+  });
+}
+</script>
+
+</body>
+</html>
